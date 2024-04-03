@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>food menu</title>
+<style>
+    .content{
+        max-width: 500px;
+        margin: auto;
+    }
+</style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    >
+</head>
+<body>
+
+<div class="content">
+    <div th:if="${successfull}" th:text="${successfull}" class="alert alert-primary" role="alert"></div>
+    <div th:if="${errormessage}" th:text="${errormessage}" class="alert alert-warning" role="alert"></div>
+
+    <form th:object="${food}" method="post" th:action="@{/food}">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input type="text" th:field="*{name}" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Price</label>
+            <input type="text" th:field="*{price}" name="price" class="form-control" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+<h1 align="center">Food Menu</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Sl. No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="food,iterator:${foods}">
+        <th scope="row" th:text="${iterator.index}+1"></th>
+        <td th:text="${food.name}"></td>
+        <td th:text="${food.price}"></td>
+    </tr>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
